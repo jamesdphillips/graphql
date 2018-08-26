@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.11
+
+    steps:
+      - checkout
+
+      - restore_cache:
+        keys:
+          - v1-pkg-cache
+
+      - run:
+        name: Run unit tests
+        command: go test ./...
+
+      - save-cache:
+          key: v1-pkg-cache
+          paths:
+            - "/go/pkg"
