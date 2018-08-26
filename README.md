@@ -1,5 +1,8 @@
 # GraphQL
 
+Extracted from [sensu/sensu-go]. Represents code in production by organizations
+running [Sensu] version 2.
+
 ## Suggested Reading
 
 - [Introduction to GraphQL](https://www.graphql.org/learn)
@@ -7,6 +10,9 @@
 - [GraphQL Mutations](http://graphql.org/learn/queries/#mutations)
 
 ## Basic Usage
+
+For those familiar with implementing a gRPC service in golang should feel right
+at home.
 
 1.  Add new type / field definition(s).
 
@@ -164,3 +170,6 @@ Mutations are how the client modifies the server-side data.
   - Ideally all types and fields are
 - **FieldResolvers** live in the `graphql` package.
   - Filenames should match the same name of the graphql file it is implementing.
+
+[Sensu]:https://www.sensu.io
+[sensu/sensu-go]:https://github.com/sensu/sensu-go
