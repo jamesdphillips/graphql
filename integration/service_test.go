@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/graphql-go/graphql/language/ast"
-	"github.com/sensu/sensu-go/graphql"
-	schema "github.com/sensu/sensu-go/graphql/integration/testdata"
+	"github.com/jamesdphillips/graphql"
+	schema "github.com/jamesdphillips/graphql/integration/testdata"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

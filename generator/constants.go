@@ -8,7 +8,7 @@ const (
 	defsPkg = "github.com/graphql-go/graphql"
 
 	// GraphQL service package
-	servicePkg = "github.com/sensu/sensu-go/graphql"
+	servicePkg = "github.com/jamesdphillips/graphql"
 
 	// package used for decoding parameters
 	mapstructurePkg = "github.com/mitchellh/mapstructure"

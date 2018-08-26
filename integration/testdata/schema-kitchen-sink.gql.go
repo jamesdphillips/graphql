@@ -5,8 +5,8 @@ package schema
 import (
 	graphql1 "github.com/graphql-go/graphql"
 	ast "github.com/graphql-go/graphql/language/ast"
+	graphql "github.com/jamesdphillips/graphql"
 	mapstructure "github.com/mitchellh/mapstructure"
-	graphql "github.com/sensu/sensu-go/graphql"
 )
 
 // Schema supplies the root types of each type of operation, query,
