@@ -9,14 +9,11 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestKitchenSinkExample(t *testing.T) {
-	file, err := ParseFile("./kitchen-sink-schema/schema.graphql")
+func TestGeneratorRun(t *testing.T) {
+	fs, err := ParseDir("./kitchen-sink-schema")
 	require.NoError(t, err)
-	require.NotNil(t, file)
-	require.NoError(t, file.Validate())
 
-	files := GraphQLFiles{file}
-	generator := New(files)
+	generator := New(fs)
 	require.NotNil(t, generator)
 
 	saver := testSaver{}

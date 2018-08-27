@@ -27,3 +27,44 @@ func TestLoadDir(t *testing.T) {
 	require.NotEmpty(t, fs)
 	require.NoError(t, fs.Validate())
 }
+
+func TestFilesValidate(t *testing.T) {
+	fs, _ := ParseDir("./kitchen-sink-schema")
+	err := fs.Validate()
+	require.NoError(t, err)
+}
+
+func TestFileValidate(t *testing.T) {
+	testCases := []struct {
+		desc      string
+		path      string
+		expectErr bool
+	}{
+		{
+			desc:      "given valid schema",
+			path:      "./kitchen-sink-schema/schema.graphql",
+			expectErr: false,
+		},
+		{
+			desc:      "given graphql file with query",
+			path:      "./schema-with-query.graphql",
+			expectErr: true,
+		},
+		{
+			desc:      "given graphql file with fragment",
+			path:      "./schema-with-fragment.graphql",
+			expectErr: true,
+		},
+	}
+	for _, tc := range testCases {
+		t.Run(tc.desc, func(t *testing.T) {
+			f, _ := ParseFile(tc.path)
+			err := f.Validate()
+			if tc.expectErr {
+				require.Error(t, err)
+			} else {
+				require.NoError(t, err)
+			}
+		})
+	}
+}
