@@ -1,0 +1,4 @@
+exclude_patterns:
+  # Ignore generated code
+  - "**/*.gql.go"
+  - "**/*_test.go"
