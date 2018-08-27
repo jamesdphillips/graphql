@@ -39,11 +39,16 @@ at home.
     # ./graphqlservice/schema/dog.graphql
 
     """
+    Reference to a resource on the web.
+    """
+    scalar URL
+
+    """
     A Dog are the best pets.
     """
     type Dog implements Named {
       name: String!
-      profilePicture(size: Size): String
+      profilePicture(size: Size): URL
       friends: [Pet]!
     }
 
