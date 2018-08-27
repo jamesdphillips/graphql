@@ -70,7 +70,7 @@ at home.
     Run:
 
     ```shell
-    graphqlgen ./path-to-my-schema
+    gengraphql ./path-to-my-schema
     ```
 
 3.  Next we need to tell our service how the types themselves are implemented.
