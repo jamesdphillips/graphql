@@ -26,7 +26,7 @@ func TestDo(t *testing.T) {
 	svc.Regenerate()
 
 	ctx := context.Background()
-	res := svc.Do(ctx, "query { one }", map[string]interface{}{})
+	res := svc.Do(ctx, "query { one(first: [{three: \"four\"}]) }", map[string]interface{}{})
 	require.Empty(t, res.Errors)
 	assert.NotEmpty(t, res.Data)
 }

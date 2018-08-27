@@ -16,7 +16,7 @@ func _SchemaConfigFn() graphql1.SchemaConfig {
 var _SchemaDesc = SchemaDesc{Config: _SchemaConfigFn}
 
 type fooOneFieldResolverArgs struct {
-	First int
+	First interface{}
 }
 
 type fooOneFieldResolverParams struct {
@@ -34,7 +34,7 @@ type fooFieldResolvers interface {
 
 type fooAliases struct{}
 
-func (_ fooAliases) One(p fooOneFieldResolverParams) (float64, error) {
+func (fooAliases) One(p fooOneFieldResolverParams) (float64, error) {
 	return 1.0, nil
 }
 
@@ -60,7 +60,7 @@ func _ObjectTypeFooConfigFn() graphql1.ObjectConfig {
 		Fields: graphql1.Fields{"one": &graphql1.Field{
 			Args: graphql1.FieldConfigArgument{"first": &graphql1.ArgumentConfig{
 				Description: "self descriptive",
-				Type:        graphql1.Int,
+				Type:        graphql1.NewNonNull(graphql1.NewList(InputType("Input"))),
 			}},
 			DeprecationReason: "",
 			Description:       "self descriptive",
@@ -92,7 +92,7 @@ type bazFieldResolvers interface {
 
 type bazAliases struct{}
 
-func (_ bazAliases) Two(p ResolveParams) (interface{}, error) {
+func (bazAliases) Two(p ResolveParams) (interface{}, error) {
 	val, err := DefaultResolver(p.Source, p.Info.FieldName)
 	return val, err
 }
@@ -176,7 +176,7 @@ func _InterfaceTypeBarConfigFn() graphql1.InterfaceConfig {
 		Fields: graphql1.Fields{"one": &graphql1.Field{
 			Args: graphql1.FieldConfigArgument{"first": &graphql1.ArgumentConfig{
 				Description: "self descriptive",
-				Type:        graphql1.Int,
+				Type:        graphql1.NewNonNull(graphql1.NewList(InputType("Input"))),
 			}},
 			DeprecationReason: "",
 			Description:       "self descriptive",
