@@ -1,7 +1,24 @@
-# GraphQL
+<p align="center">
+  <a href="https://www.graphql.org/">
+    <img alt="senu" src="https://graphql.org/img/logo.svg" width="144">
+  </a>
+</p>
 
-Extracted from [sensu/sensu-go]. Represents code in production by organizations
-running [Sensu] version 2.
+<h3 align="center">
+  GraphQL
+</h3>
+
+<p align="center">
+  Go Flavoured GraphQL module for implementing fast, type safe
+  <a href="https://graphql.org">GraphQL</a> services. Extracted from
+  <a href="https://github.com/sensu/sensu-go">sensu/sensu-go</a>. Represents
+  code in production by organizations running
+  <a href="https://sensu.io">Sensu</a> version 2.
+</p>
+
+<p align="center">
+  <a href="https://circleci.com/gh/sensu/sensu-go/tree/master"><img src="https://circleci.com/gh/sensu/sensu-go/tree/master.svg?style=svg"></a>
+</p>
 
 ## Suggested Reading
 
