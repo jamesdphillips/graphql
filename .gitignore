@@ -7,4 +7,4 @@ target/
 .DS_Store
 *.test
 *.prof
-coverage.out
+cover.out
