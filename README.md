@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://circleci.com/gh/sensu/sensu-go/tree/master"><img src="https://circleci.com/gh/sensu/sensu-go/tree/master.svg?style=svg"></a>
+  <a href="https://circleci.com/gh/jamesdphillips/graphql/tree/master"><img src="https://circleci.com/gh/jamesdphillips/graphql/tree/master.svg?style=svg"></a>
   <a href="https://codeclimate.com/github/jamesdphillips/graphql/maintainability"><img src="https://api.codeclimate.com/v1/badges/9527ae9a786ed7c9ad5b/maintainability" /></a>
   <a href="https://codeclimate.com/github/jamesdphillips/graphql/test_coverage"><img src="https://api.codeclimate.com/v1/badges/9527ae9a786ed7c9ad5b/test_coverage" /></a>
 </p>
