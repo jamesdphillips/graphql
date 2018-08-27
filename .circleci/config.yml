@@ -8,6 +8,8 @@ jobs:
     docker:
       - image: circleci/golang:1.11rc2-node
 
+    working_directory: /go/src/github.com/jamesdphillips/graphql
+
     steps:
       - checkout
       - run: mkdir -p $TEST_RESULTS
