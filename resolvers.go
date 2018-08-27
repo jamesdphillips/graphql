@@ -146,35 +146,7 @@ func DefaultResolver(source interface{}, fieldName string) (interface{}, error) 
 
 	// Struct
 	if sourceVal.Type().Kind() == reflect.Struct {
-		fieldName = strings.Title(fieldName)
-		for i := 0; i < sourceVal.NumField(); i++ {
-			valueField := sourceVal.Field(i)
-			typeField := sourceVal.Type().Field(i)
-			if typeField.Name == fieldName {
-				// If ptr and value is nil return nil
-				if valueField.Type().Kind() == reflect.Ptr && valueField.IsNil() {
-					return nil, nil
-				}
-				return valueField.Interface(), nil
-			}
-			tag := typeField.Tag
-			checkTag := func(tagName string) bool {
-				t := tag.Get(tagName)
-				tOptions := strings.Split(t, ",")
-				if len(tOptions) == 0 {
-					return false
-				}
-				if tOptions[0] != fieldName {
-					return false
-				}
-				return true
-			}
-			if checkTag("json") || checkTag("graphql") {
-				return valueField.Interface(), nil
-			}
-			continue
-		}
-		return nil, nil
+		return resolveStructValue(sourceVal, fieldName)
 	}
 
 	// map[string]interface
@@ -193,6 +165,43 @@ func DefaultResolver(source interface{}, fieldName string) (interface{}, error) 
 
 	// last resort, return nil
 	return nil, nil
+}
+
+func resolveStructValue(source reflect.Value, fieldName string) (interface{}, error) {
+	targetFieldName := strings.Title(fieldName)
+
+	for i := 0; i < source.NumField(); i++ {
+		valueField := source.Field(i)
+		typeField := source.Type().Field(i)
+		if typeField.Name == targetFieldName {
+			// If ptr and value is nil return nil
+			if valueField.Type().Kind() == reflect.Ptr && valueField.IsNil() {
+				return nil, nil
+			}
+			return valueField.Interface(), nil
+		}
+
+		checkTag := createCheckTag(typeField.Tag, fieldName)
+		if checkTag("json") || checkTag("graphql") {
+			return valueField.Interface(), nil
+		}
+		continue
+	}
+	return nil, nil
+}
+
+func createCheckTag(t reflect.StructTag, name string) func(string) bool {
+	return func(tagType string) bool {
+		tag := t.Get(tagType)
+		tOptions := strings.Split(tag, ",")
+		if len(tOptions) == 0 {
+			return false
+		}
+		if tOptions[0] != name {
+			return false
+		}
+		return true
+	}
 }
 
 type typeResolver interface {
