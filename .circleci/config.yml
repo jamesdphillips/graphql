@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    environment:
+      CC_TEST_REPORTER_ID: 907c5ca1f77a9f4d4ab5a7ff8e9d2d616abaf8c373f2d2ddb9a652d5ad985642
+
     docker:
       - image: circleci/golang:latest
 
@@ -12,8 +15,16 @@ jobs:
           - v1-pkg-cache
 
       - run:
+        name: Install test coverage tool
+        command: |
+          go get -v github.com/codeclimate/test-reporter
+
+      - run:
         name: Run unit tests
-        command: go test ./...
+        command: |
+          test-reporter before-build
+          go test -covermode atomic -coverprofile c.out ./...
+          test-reporter after-build # magic..?
 
       - save-cache:
           key: v1-pkg-cache
