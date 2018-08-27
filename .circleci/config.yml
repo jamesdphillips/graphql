@@ -3,22 +3,21 @@ jobs:
   build:
     environment:
       CODECLIMATE_REPO_TOKEN: 907c5ca1f77a9f4d4ab5a7ff8e9d2d616abaf8c373f2d2ddb9a652d5ad985642
+      TEST_RESULTS: /tmp/test-results
 
     docker:
       - image: circleci/golang:1.11rc2-node
 
     steps:
       - checkout
+      - run: mkdir -p $TEST_RESULTS
 
-      - run:
-          name: Print Go version
-          command: go version
+      - restore_cache:
+          keys:
+            - v1-pkg-cache
 
-      - run:
-          name: Install test coverage tool
-          command: sudo npm install -g codeclimate-test-reporter
-            # curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            # chmod +x ./cc-test-reporter
+      - run: go get github.com/jstemmer/go-junit-report
+      - run: sudo npm install -g codeclimate-test-reporter
 
       - run:
           name: Run tests
@@ -26,5 +25,18 @@ jobs:
             go build ./...
             go test -race -covermode atomic -coverprofile cover.out ./...
             codeclimate-test-reporter < cover.out
+            go-junit-report cover.out > $TEST_RESULTS/go-test-report.xml
           environment:
             GO111MODULE: "on"
+
+      - save_cache:
+          key: v1-pkg-cache
+          paths:
+            - "/go/pkg"
+
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: raw-test-output
+
+      - store_test_results:
+          path: /tmp/test-results
